@@ -23,3 +23,11 @@ int main()
 
 	return 0;
 }
+
+/*
+sfml-window.lib
+sfml-graphics.lib
+sfml-main.lib
+sfml-system.lib
+
+*/
