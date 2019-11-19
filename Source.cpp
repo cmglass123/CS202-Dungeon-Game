@@ -4,8 +4,8 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 	sf::CircleShape shape(100.f);
-	//sf::SquareShape shape(100.f);
-	shape.setFillColor(sf::Color::White);
+	shape.setFillColor(sf::Color::Green);
+
 
 	while (window.isOpen())
 	{
@@ -23,3 +23,10 @@ int main()
 
 	return 0;
 }
+
+/*
+sfml-window.lib
+sfml-graphics.lib
+sfml-main.lib
+sfml-system.lib
+*/
