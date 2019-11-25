@@ -1,25 +1,26 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
-using namespace sf;
 
 int main()
 {
 	srand(time(0));
 
-	RenderWindow app(VideoMode(400, 400), "Minesweeper!");
+	sf::RenderWindow app(sf::VideoMode(400, 400), "Minesweeper!");
 
-	int w = 32;
+	
+	int imgSize = 32;
 	int grid[12][12];
-	int sgrid[12][12]; //for showing
+	int showGrid[12][12]; //for showing blank tiles
 
-	Texture t;
-	t.loadFromFile("tiles.jpg");
-	Sprite s(t);
+	sf::Texture texture;
+	texture.loadFromFile("tiles.jpg");
+	sf::Sprite sprite(texture);
 
 	for (int i = 1; i <= 10; i++)
 		for (int j = 1; j <= 10; j++)
 		{
-			sgrid[i][j] = 10;
+			
+			showGrid[i][j] = 10;
 			if (rand() % 5 == 0)  grid[i][j] = 9;
 			else grid[i][j] = 0;
 		}
@@ -42,29 +43,32 @@ int main()
 
 	while (app.isOpen())
 	{
-		Vector2i pos = Mouse::getPosition(app);
-		int x = pos.x / w;
-		int y = pos.y / w;
+		sf::Vector2i pos = sf::Mouse::getPosition(app);
+		int x = pos.x / imgSize;
+		int y = pos.y / imgSize;
 
-		Event e;
-		while (app.pollEvent(e))
+		sf::Event event;
+		while (app.pollEvent(event))
 		{
-			if (e.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 				app.close();
 
-			if (e.type == Event::MouseButtonPressed)
-				if (e.key.code == Mouse::Left) sgrid[x][y] = grid[x][y];
-				else if (e.key.code == Mouse::Right) sgrid[x][y] = 11;
+			if (event.type == sf::Event::MouseButtonPressed)
+				if (event.key.code == sf::Mouse::Left) showGrid[x][y] = grid[x][y];
+				else if (event.key.code == sf::Mouse::Right) showGrid[x][y] = 11;
 		}
 
-		app.clear(Color::White);
+		//color of background
+		app.clear(sf::Color::White);
+		//add column to grid
 		for (int i = 1; i <= 10; i++)
+			//add row to grid
 			for (int j = 1; j <= 10; j++)
 			{
-				if (sgrid[x][y] == 9) sgrid[i][j] = grid[i][j];
-				s.setTextureRect(IntRect(sgrid[i][j] * w, 0, w, w));
-				s.setPosition(i * w, j * w);
-				app.draw(s);
+				if (showGrid[x][y] == 9) showGrid[i][j] = grid[i][j];
+				sprite.setTextureRect(sf::IntRect(showGrid[i][j] * imgSize, 0, imgSize, imgSize));
+				sprite.setPosition(i * imgSize, j * imgSize);
+				app.draw(sprite);
 			}
 
 		app.display();
