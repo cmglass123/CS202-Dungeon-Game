@@ -13,7 +13,7 @@ int main()
 	int showGrid[12][12]; //for showing blank tiles
 
 	sf::Texture texture;
-	texture.loadFromFile("tiles.jpg");
+	texture.loadFromFile("tiles2.jpg");
 	sf::Sprite sprite(texture);
 
 	for (int col = 1; col <= 10; col++)
@@ -55,7 +55,7 @@ int main()
 
 			if (event.type == sf::Event::MouseButtonPressed)
 				if (event.key.code == sf::Mouse::Left) showGrid[mouseX][mouseY] = grid[mouseX][mouseY];
-				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 11;
+				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 12;
 		}
 
 		//color of background
