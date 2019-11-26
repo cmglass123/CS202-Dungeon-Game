@@ -10,16 +10,15 @@ int main()
 
 	int w = 32;
 	int grid[12][12];
-	int sgrid[12][12]; //for showing
+	int showGrid[22][22]; //for showing
 
 	Texture t;
-	t.loadFromFile("tiles.jpg");
+	t.loadFromFile("tiles2.jpg");
 	Sprite s(t);
-
 	for (int i = 1; i <= 10; i++)
 		for (int j = 1; j <= 10; j++)
 		{
-			sgrid[i][j] = 10;
+			showGrid[i][j] = 10;
 			if (rand() % 5 == 0)  grid[i][j] = 9;
 			else grid[i][j] = 0;
 		}
@@ -43,26 +42,31 @@ int main()
 	while (app.isOpen())
 	{
 		Vector2i pos = Mouse::getPosition(app);
-		int x = pos.x / w;
-		int y = pos.y / w;
+		int mouseXPos = pos.x / w;
+		int mouseYPos = pos.y / w;
 
-		Event e;
-		while (app.pollEvent(e))
+		Event somethingHasHappened;
+		while (app.pollEvent(somethingHasHappened))
 		{
-			if (e.type == Event::Closed)
+			if (somethingHasHappened.type == Event::Closed)
 				app.close();
 
-			if (e.type == Event::MouseButtonPressed)
-				if (e.key.code == Mouse::Left) sgrid[x][y] = grid[x][y];
-				else if (e.key.code == Mouse::Right) sgrid[x][y] = 11;
+			if (somethingHasHappened.type == Event::MouseButtonPressed)
+			{
+				if (somethingHasHappened.key.code == Mouse::Left)
+				{
+					showGrid[mouseXPos][mouseYPos] = grid[mouseXPos][mouseYPos];
+				}
+				else if (somethingHasHappened.key.code == Mouse::Right) showGrid[mouseXPos][mouseYPos] = 12;
+			}
 		}
 
 		app.clear(Color::White);
 		for (int i = 1; i <= 10; i++)
 			for (int j = 1; j <= 10; j++)
 			{
-				if (sgrid[x][y] == 9) sgrid[i][j] = grid[i][j];
-				s.setTextureRect(IntRect(sgrid[i][j] * w, 0, w, w));
+				if (showGrid[mouseXPos][mouseYPos] == 9) showGrid[i][j] = grid[i][j];
+				s.setTextureRect(IntRect(showGrid[i][j] * w, 0, w, w));
 				s.setPosition(i * w, j * w);
 				app.draw(s);
 			}
