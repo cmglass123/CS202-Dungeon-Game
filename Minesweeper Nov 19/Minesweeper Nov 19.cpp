@@ -5,7 +5,7 @@ int main()
 {
 	srand(time(0));
 
-	sf::RenderWindow app(sf::VideoMode(420, 420), "Minesweeper!");
+	sf::RenderWindow app(sf::VideoMode(400, 400), "Minesweeper!");
 
 
 	int imgSize = 32;
@@ -61,7 +61,7 @@ int main()
 
 			if (event.type == sf::Event::MouseButtonPressed)
 				if (event.key.code == sf::Mouse::Left) showGrid[mouseX][mouseY] = grid[mouseX][mouseY];
-				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 11;
+				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 12;
 		}
 
 		//color of background
