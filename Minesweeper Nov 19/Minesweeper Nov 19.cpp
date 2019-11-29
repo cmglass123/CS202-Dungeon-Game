@@ -5,22 +5,26 @@ int main()
 {
 	srand(time(0));
 
-	sf::RenderWindow app(sf::VideoMode(400, 400), "Minesweeper!");
+	sf::RenderWindow app(sf::VideoMode(420, 420), "Minesweeper!");
 
 
 	int imgSize = 32;
 	int grid[12][12];
-	int showGrid[12][12]; //for showing blank tiles
+	int showGrid[12][12]; //for showing tiles underneath
 
 	sf::Texture texture;
 	texture.loadFromFile("tiles2.jpg");
 	sf::Sprite sprite(texture);
 
+	//add column to grid
 	for (int col = 1; col <= 10; col++)
+		//add row to grid
 		for (int row = 1; row <= 10; row++)
 		{
 
+			//set to 10 in tiles.png
 			showGrid[col][row] = 10;
+			//# of bombs
 			if (rand() % 5 == 0)  grid[col][row] = 9;
 			else grid[col][row] = 0;
 		}
@@ -63,9 +67,9 @@ int main()
 		//color of background
 		app.clear(sf::Color::White);
 
-		//add column to grid
+		//add column to showGrid
 		for (int col = 1; col <= 10; col++)
-			//add row to grid
+			//add row to showGrid
 			for (int row = 1; row <= 10; row++)
 			{
 				//show tiles if bomb tile is pressed
