@@ -25,20 +25,22 @@ int main()
 			else grid[col][row] = 0;
 		}
 
-	for (int col = 1; col <= 10; col++)
-		for (int row = 1; row <= 10; row++)
+	//set tiles to row
+	for (int row = 1; row <= 10; row++)
+		//set tiles for column
+		for (int col = 1; col <= 10; col++)
 		{
 			int n = 0;
-			if (grid[col][row] == 9) continue;
-			if (grid[col + 1][row] == 9) n++;
-			if (grid[col][row + 1] == 9) n++;
-			if (grid[col - 1][row] == 9) n++;
-			if (grid[col][row - 1] == 9) n++;
-			if (grid[col + 1][row + 1] == 9) n++;
-			if (grid[col - 1][row - 1] == 9) n++;
-			if (grid[col - 1][row + 1] == 9) n++;
-			if (grid[col + 1][row - 1] == 9) n++;
-			grid[col][row] = n;
+			if (grid[row][col] == 9) continue;
+			if (grid[row + 1][col] == 9) n++;
+			if (grid[row][col + 1] == 9) n++;
+			if (grid[row - 1][col] == 9) n++;
+			if (grid[row][col - 1] == 9) n++;
+			if (grid[row + 1][col + 1] == 9) n++;
+			if (grid[row - 1][col - 1] == 9) n++;
+			if (grid[row - 1][col + 1] == 9) n++;
+			if (grid[row + 1][col - 1] == 9) n++;
+			grid[row][col] = n;
 		}
 
 	while (app.isOpen())
@@ -55,7 +57,7 @@ int main()
 
 			if (event.type == sf::Event::MouseButtonPressed)
 				if (event.key.code == sf::Mouse::Left) showGrid[mouseX][mouseY] = grid[mouseX][mouseY];
-				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 12;
+				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 11;
 		}
 
 		//color of background
