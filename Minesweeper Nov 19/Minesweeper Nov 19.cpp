@@ -86,8 +86,11 @@ int main()
 				sprite.setPosition(col * imgSize, row * imgSize);
 
 
-				/*movingSprite.setTextureRect(sf::IntRect(charTile[col][row] * imgSize, 0, imgSize, imgSize));
+			/*	movingSprite.setTextureRect(sf::IntRect(charTile[col][row] * imgSize, 0, imgSize, imgSize));
 				movingSprite.setPosition(32*10,32);
+				if (event.key.code == sf::Mouse::Left) {
+					movingSprite.move(sf::Vector2f(-32.f, 0.f));
+				}
 				app.draw(movingSprite);*/
 
 				app.draw(sprite);
