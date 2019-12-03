@@ -121,7 +121,13 @@ int main()
 				{
 					hp--;
 					hp--;
-					cout << "Monster Encountered, hp is now: " << hp << endl;
+					
+					if (hp < 0) {
+						cout << "failstate reached, hp is " << hp << endl;
+					}
+					else {
+						cout << "Monster Encountered, hp is now: " << hp << endl;
+					}
 				}
 			}
 
@@ -169,7 +175,7 @@ int main()
 					
 				if (hp <= 0)
 				{
-					cout << "failstate reached, hp is " << hp << endl;
+					//cout << "failstate reached, hp is " << hp << endl;
 					showGrid[col][row] = grid[col][row];
 				}
 
