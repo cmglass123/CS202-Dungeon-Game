@@ -9,6 +9,19 @@ using std::cout;
 using std::endl;
 using std::ostream;
 
+void floodfill(int mX, int mY, int gShown[12][12], int gReal[12][12])
+{
+	cout << "Beginning floodfill on tile " << mX << ", " << mY << endl;
+	gShown[mX + 1][mY] = gReal[mX + 1][mY];
+	gShown[mX][mY + 1] = gReal[mX][mY + 1];
+	gShown[mX - 1][mY] = gReal[mX - 1][mY];
+	gShown[mX][mY - 1] = gReal[mX][mY - 1];
+	if (gReal[mX + 1][mY] == 0 && gShown[mX + 1][mY] != 0) floodfill(mX + 1, mY, gShown, gReal);
+	if (gReal[mX][mY + 1] == 0 && gShown[mX][mY + 1] != 0) floodfill(mX, mY + 1, gShown, gReal);
+	if (gReal[mX - 1][mY] == 0 && gShown[mX - 1][mY] != 0) floodfill(mX - 1, mY, gShown, gReal);
+	if (gReal[mX][mY - 1] == 0 && gShown[mX][mY - 1] != 0) floodfill(mX, mY - 1, gShown, gReal);
+}
+
 int main()
 {
 	srand(time(0));
@@ -86,6 +99,20 @@ int main()
 				cout << "Treasure Chest Looted, hp is " << hp << endl;
 				hp++;
 			}*/
+
+			if (event.type == sf::Event::MouseButtonPressed && grid[mouseX][mouseY] == 0)
+			{
+				if (event.key.code == sf::Mouse::Left)
+				{
+					floodfill(mouseX, mouseY, showGrid, grid);
+					/*cout << "empty tile encountered, beginning floodfill " << endl;
+					showGrid[mouseX+1][mouseY] = grid[mouseX+1][mouseY];
+					showGrid[mouseX][mouseY+1] = grid[mouseX][mouseY+1];
+					showGrid[mouseX-1][mouseY] = grid[mouseX-1][mouseY];
+					showGrid[mouseX][mouseY-1] = grid[mouseX][mouseY-1];*/
+					
+				}
+			}
 
 			//register if a monster has been clicked on and deincrement hp
 			if (event.type == sf::Event::MouseButtonPressed && grid[mouseX][mouseY] == 9)
