@@ -16,6 +16,8 @@ void floodfill(int mX, int mY, int gShown[12][12], int gReal[12][12])
 	gShown[mX][mY + 1] = gReal[mX][mY + 1];
 	gShown[mX - 1][mY] = gReal[mX - 1][mY];
 	gShown[mX][mY - 1] = gReal[mX][mY - 1];
+
+	//recursive calls
 	if (gReal[mX + 1][mY] == 0 && gShown[mX + 1][mY] != 0) floodfill(mX + 1, mY, gShown, gReal);
 	if (gReal[mX][mY + 1] == 0 && gShown[mX][mY + 1] != 0) floodfill(mX, mY + 1, gShown, gReal);
 	if (gReal[mX - 1][mY] == 0 && gShown[mX - 1][mY] != 0) floodfill(mX - 1, mY, gShown, gReal);
@@ -104,13 +106,8 @@ int main()
 			{
 				if (event.key.code == sf::Mouse::Left)
 				{
+					//Floodfill
 					floodfill(mouseX, mouseY, showGrid, grid);
-					/*cout << "empty tile encountered, beginning floodfill " << endl;
-					showGrid[mouseX+1][mouseY] = grid[mouseX+1][mouseY];
-					showGrid[mouseX][mouseY+1] = grid[mouseX][mouseY+1];
-					showGrid[mouseX-1][mouseY] = grid[mouseX-1][mouseY];
-					showGrid[mouseX][mouseY-1] = grid[mouseX][mouseY-1];*/
-					
 				}
 			}
 
