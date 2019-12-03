@@ -22,7 +22,10 @@ int main()
 		//add row to grid
 		for (int row = 1; row <= 10; row++)
 		{
+
+			//set sprite to 11 in tiles.png
 			charTile[col][row] = 11;
+
 			//set to 10 in tiles.png
 			showGrid[col][row] = 10;
 			//# of bombs
