@@ -19,6 +19,7 @@ int main()
 	int imgSize = 32;
 	int grid[12][12];
 	int showGrid[12][12]; //for showing tiles underneath
+	int charTile[12][12];
 
 	sf::Texture texture;
 	texture.loadFromFile("tiles2.jpg");
@@ -29,6 +30,9 @@ int main()
 		//add row to grid
 		for (int row = 1; row <= 10; row++)
 		{
+
+			//set sprite to 11 in tiles.png
+			charTile[col][row] = 11;
 
 			//set to 10 in tiles.png
 			showGrid[col][row] = 10;
@@ -74,6 +78,7 @@ int main()
 
 			if (event.type == sf::Event::MouseButtonPressed)
 				if (event.key.code == sf::Mouse::Left) showGrid[mouseX][mouseY] = grid[mouseX][mouseY];
+
 				else if (event.key.code == sf::Mouse::Right) showGrid[mouseX][mouseY] = 12;
 
 			/*if (event.type == sf::Event::MouseButtonPressed && showGrid[mouseX][mouseY] == 12)
@@ -143,7 +148,17 @@ int main()
 
 				sprite.setTextureRect(sf::IntRect(showGrid[col][row] * imgSize, 0, imgSize, imgSize));
 				sprite.setPosition(col * imgSize, row * imgSize);
+
+
+			/*	movingSprite.setTextureRect(sf::IntRect(charTile[col][row] * imgSize, 0, imgSize, imgSize));
+				movingSprite.setPosition(32*10,32);
+				if (event.key.code == sf::Mouse::Left) {
+					movingSprite.move(sf::Vector2f(-32.f, 0.f));
+				}
+				app.draw(movingSprite);*/
+
 				app.draw(sprite);
+
 			}
 
 		app.display();
