@@ -4,16 +4,20 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <sstream>
 
 using std::cout;
 using std::endl;
 using std::ostream;
 
+
+
 int main()
 {
 	srand(time(0));
 
-	sf::RenderWindow app(sf::VideoMode(400, 400), "Minesweeper!");
+	//was 400, 400
+	sf::RenderWindow app(sf::VideoMode(400, 500), "Minesweeper!");
 
 
 	int imgSize = 32;
@@ -63,6 +67,23 @@ int main()
 	int hp = 3;
 	cout << "Starting hp is: " << hp << endl;
 
+
+
+	//font stuff
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+		cout << "can't open font" << endl;
+	}
+	sf::Text hpText;
+	hpText.setFont(font);
+	hpText.setCharacterSize(30);
+	hpText.setFillColor(sf::Color::Black);
+	hpText.setPosition(30.f, 355.f);
+	hpText.setString(" HP is: 3. ");
+
+	std::ostringstream os;
+
+
 	while (app.isOpen())
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(app);
@@ -74,6 +95,10 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				app.close();
+
+
+
+
 
 
 			if (event.type == sf::Event::MouseButtonPressed)
@@ -95,12 +120,15 @@ int main()
 					hp--;
 					hp--;
 					
-					if (hp < 0) {
-						cout << "failstate reached, hp is " << hp << endl;
+					os.clear();
+					os.str("");
+					if (hp < 0){
+						os << "HP is: " << hp << ". ";
 					}
 					else {
-						cout << "Monster Encountered, hp is now: " << hp << endl;
+						os << "HP is: " << hp << ". ";
 					}
+					hpText.setString(os.str());
 				}
 			}
 
@@ -129,7 +157,7 @@ int main()
 
 		//color of background
 		app.clear(sf::Color::White);
-
+		app.draw(hpText);
 		//add column to showGrid
 		for (int col = 1; col <= 10; col++)
 			//add row to showGrid
