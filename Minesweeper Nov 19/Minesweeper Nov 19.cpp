@@ -91,6 +91,7 @@ int main()
 	hpText.setCharacterSize(20);
 	hpText.setFillColor(sf::Color::Black);
 	hpText.setPosition(30.f, 355.f);
+	hpText.setStyle(sf::Text::Bold);
 	hpText.setString(" Starting HP is: 3. ");
 
 	std::ostringstream os;
@@ -155,6 +156,8 @@ int main()
 			{
 				if (event.key.code == sf::Mouse::Right)
 				{
+					os.clear();
+					os.str("");
 					grid[mouseX][mouseY] = 12;
 					os << " Monster Defeated. ";
 					hpText.setString(os.str());
