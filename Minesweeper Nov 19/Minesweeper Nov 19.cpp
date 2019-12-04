@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <sstream>
 
 using std::cout;
 using std::endl;
@@ -76,7 +77,25 @@ int main()
 
 	//set starting hp
 	int hp = 3;
-	cout << "Starting hp is: " << hp << endl;
+	//cout << "Starting hp is: " << hp << endl;
+
+	//sets up font and checks font file
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+		cout << "can't open font" << endl;
+	}
+	//creates text and sets font
+	sf::Text hpText;
+	hpText.setFont(font);
+	//sets size and color, along with placement and what is written
+	hpText.setCharacterSize(20);
+	hpText.setFillColor(sf::Color::Black);
+	hpText.setPosition(30.f, 355.f);
+	hpText.setString(" Starting HP is: 3. ");
+
+	std::ostringstream os;
+
+
 
 	while (app.isOpen())
 	{
@@ -119,12 +138,15 @@ int main()
 					hp--;
 					hp--;
 					
+					os.clear();
+					os.str("");
 					if (hp < 0) {
-						cout << "failstate reached, hp is " << hp << endl;
+						os << "failstate reached, hp is " << hp << ". ";
 					}
 					else {
-						cout << "Monster Encountered, hp is now: " << hp << endl;
+						os << "Monster Encountered, hp is now: " << hp << ". ";
 					}
+					hpText.setString(os.str());
 				}
 			}
 
@@ -134,7 +156,8 @@ int main()
 				if (event.key.code == sf::Mouse::Right)
 				{
 					grid[mouseX][mouseY] = 12;
-					cout << "Monster Defeated" << endl;
+					os << " Monster Defeated. ";
+					hpText.setString(os.str());
 				}
 			}
 
@@ -144,7 +167,11 @@ int main()
 				if (event.key.code == sf::Mouse::Left)
 				{
 					hp++;
-					cout << "Chest Looted, hp is now: " << hp << endl;
+					os.clear();
+					os.str(". ");
+					os << "Chest Looted, hp is now: " << hp << ". ";
+					hpText.setString(os.str());
+
 					grid[mouseX][mouseY] = 11;
 					showGrid[mouseX][mouseY] = 11;
 				}
@@ -153,6 +180,9 @@ int main()
 
 		//color of background
 		app.clear(sf::Color::White);
+		
+		//draws text for HP
+		app.draw(hpText);
 
 		//add column to showGrid
 		for (int col = 1; col <= 10; col++)
