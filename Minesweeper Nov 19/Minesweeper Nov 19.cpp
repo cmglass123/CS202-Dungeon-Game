@@ -4,20 +4,31 @@
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <sstream>
 
 using std::cout;
 using std::endl;
 using std::ostream;
 
+void floodfill(int mX, int mY, int gShown[12][12], int gReal[12][12])
+{
+	cout << "Beginning floodfill on tile " << mX << ", " << mY << endl;
+	gShown[mX + 1][mY] = gReal[mX + 1][mY];
+	gShown[mX][mY + 1] = gReal[mX][mY + 1];
+	gShown[mX - 1][mY] = gReal[mX - 1][mY];
+	gShown[mX][mY - 1] = gReal[mX][mY - 1];
 
+	//recursive calls
+	if (gReal[mX + 1][mY] == 0 && gShown[mX + 1][mY] != 0) floodfill(mX + 1, mY, gShown, gReal);
+	if (gReal[mX][mY + 1] == 0 && gShown[mX][mY + 1] != 0) floodfill(mX, mY + 1, gShown, gReal);
+	if (gReal[mX - 1][mY] == 0 && gShown[mX - 1][mY] != 0) floodfill(mX - 1, mY, gShown, gReal);
+	if (gReal[mX][mY - 1] == 0 && gShown[mX][mY - 1] != 0) floodfill(mX, mY - 1, gShown, gReal);
+}
 
 int main()
 {
 	srand(time(0));
 
-	//was 400, 400
-	sf::RenderWindow app(sf::VideoMode(400, 500), "Minesweeper!");
+	sf::RenderWindow app(sf::VideoMode(400, 400), "Minesweeper!");
 
 
 	int imgSize = 32;
@@ -67,23 +78,6 @@ int main()
 	int hp = 3;
 	cout << "Starting hp is: " << hp << endl;
 
-
-
-	//font stuff
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {
-		cout << "can't open font" << endl;
-	}
-	sf::Text hpText;
-	hpText.setFont(font);
-	hpText.setCharacterSize(30);
-	hpText.setFillColor(sf::Color::Black);
-	hpText.setPosition(30.f, 355.f);
-	hpText.setString(" HP is: 3. ");
-
-	std::ostringstream os;
-
-
 	while (app.isOpen())
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(app);
@@ -97,10 +91,6 @@ int main()
 				app.close();
 
 
-
-
-
-
 			if (event.type == sf::Event::MouseButtonPressed)
 				if (event.key.code == sf::Mouse::Left) showGrid[mouseX][mouseY] = grid[mouseX][mouseY];
 
@@ -112,6 +102,15 @@ int main()
 				hp++;
 			}*/
 
+			if (event.type == sf::Event::MouseButtonPressed && grid[mouseX][mouseY] == 0)
+			{
+				if (event.key.code == sf::Mouse::Left)
+				{
+					//Floodfill
+					floodfill(mouseX, mouseY, showGrid, grid);
+				}
+			}
+
 			//register if a monster has been clicked on and deincrement hp
 			if (event.type == sf::Event::MouseButtonPressed && grid[mouseX][mouseY] == 9)
 			{
@@ -120,15 +119,12 @@ int main()
 					hp--;
 					hp--;
 					
-					os.clear();
-					os.str("");
-					if (hp < 0){
-						os << "HP is: " << hp << ". ";
+					if (hp < 0) {
+						cout << "failstate reached, hp is " << hp << endl;
 					}
 					else {
-						os << "HP is: " << hp << ". ";
+						cout << "Monster Encountered, hp is now: " << hp << endl;
 					}
-					hpText.setString(os.str());
 				}
 			}
 
@@ -157,7 +153,7 @@ int main()
 
 		//color of background
 		app.clear(sf::Color::White);
-		app.draw(hpText);
+
 		//add column to showGrid
 		for (int col = 1; col <= 10; col++)
 			//add row to showGrid
