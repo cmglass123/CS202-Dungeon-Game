@@ -62,17 +62,17 @@ int main()
 		//set tiles for column
 		for (int col = 1; col <= 10; col++)
 		{
-			int n = 0;
+			int tileNumber = 0;
 			if (grid[row][col] == 9) continue;
-			if (grid[row + 1][col] == 9) n++;
-			if (grid[row][col + 1] == 9) n++;
-			if (grid[row - 1][col] == 9) n++;
-			if (grid[row][col - 1] == 9) n++;
-			if (grid[row + 1][col + 1] == 9) n++;
-			if (grid[row - 1][col - 1] == 9) n++;
-			if (grid[row - 1][col + 1] == 9) n++;
-			if (grid[row + 1][col - 1] == 9) n++;
-			grid[row][col] = n;
+			if (grid[row + 1][col] == 9) tileNumber++;
+			if (grid[row][col + 1] == 9) tileNumber++;
+			if (grid[row - 1][col] == 9) tileNumber++;
+			if (grid[row][col - 1] == 9) tileNumber++;
+			if (grid[row + 1][col + 1] == 9) tileNumber++;
+			if (grid[row - 1][col - 1] == 9) tileNumber++;
+			if (grid[row - 1][col + 1] == 9) tileNumber++;
+			if (grid[row + 1][col - 1] == 9) tileNumber++;
+			grid[row][col] = tileNumber;
 		}
 
 	//set starting hp
