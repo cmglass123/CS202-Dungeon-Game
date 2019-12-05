@@ -38,7 +38,7 @@ int main()
 	//int charTile[12][12];
 
 	sf::Texture texture;
-	texture.loadFromFile("tiles2.jpg");
+	texture.loadFromFile("tiles3.jpg");
 	sf::Sprite sprite(texture);
 
 	//add column to grid
@@ -89,7 +89,7 @@ int main()
 	hpText.setFont(font);
 	//sets size and color, along with placement and what is written
 	hpText.setCharacterSize(20);
-	hpText.setFillColor(sf::Color::Black);
+	hpText.setFillColor(sf::Color::White);
 	hpText.setPosition(30.f, 355.f);
 	hpText.setStyle(sf::Text::Bold);
 	hpText.setString(" Starting HP is: 3. ");
@@ -182,7 +182,7 @@ int main()
 		}
 
 		//color of background
-		app.clear(sf::Color::White);
+		app.clear(sf::Color::Black);
 		
 		//draws text for HP
 		app.draw(hpText);
