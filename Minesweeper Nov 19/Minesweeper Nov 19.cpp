@@ -35,7 +35,7 @@ int main()
 	int imgSize = 32;
 	int grid[12][12];
 	int showGrid[12][12]; //for showing tiles underneath
-	int charTile[12][12];
+	//int charTile[12][12];
 
 	sf::Texture texture;
 	texture.loadFromFile("tiles2.jpg");
@@ -48,7 +48,7 @@ int main()
 		{
 
 			//set sprite to 11 in tiles.png
-			charTile[col][row] = 11;
+			//charTile[col][row] = 11;
 
 			//set to 10 in tiles.png
 			showGrid[col][row] = 10;
